@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    FreeConsole;
+    FreeConsole();
     int i;
     ofstream virus;
     virus.open("virus.abcd");
