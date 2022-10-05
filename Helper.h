@@ -1,0 +1,56 @@
+#ifndef HELPER_H
+#define HELPER_H
+
+#include <ctime>
+#include <string>
+#include <sstream>
+
+namespace Helper{
+    template <class T>
+    std::string Tostring(const T &);
+    struct DateTime {
+        DateTime() {
+            time_t ms;
+            time(&ms);
+            struct tm *info = localtime(&ms);
+            D = info->tm_mday;
+            m = info->tm_mon + 1;
+            y = 1900 + info->tm_year;
+            M = info->tm_min;
+            H = info->tm_hour;
+            S = info->tm_sec;
+        }
+        DateTime(int D, int m, int y, int H, int M, int S) : D(D), m(m), y(y), H(H), M(M), S(S) {}
+        DateTime(int D, int m, int y) : D(D), m(m), y(y), H(0), M(0), S(0) {}
+
+        DateTime Now() const {
+            return DateTime();
+        } 
+        int D, M, m, y, H, S;
+        std::string GetDateString() const {
+            return std::string(D < 10 ? "0" : " ") + Tostring(D)+
+                   std::string(m < 10 ? ".0" : ".") + Tostring(m) + "." + 
+                   Tostring(y);
+        }
+
+        std::string GetTime(const std::string &sep = ":") const {
+            return std::string(H < 10 ? "0" : "") + Tostring(H) + sep + 
+                   std::string(M < 10 ? "0" : "") + Tostring(M) + sep +
+                   std::string(S < 10 ? sep : "") + Tostring(S);
+        }
+        std::string GetDateTimeString(const std::string &sep = ":") const {
+            return GetDateString() + " " + GetDateTimeString();
+        }
+    };
+
+    template <class T>
+
+    std::string Tostring(const T &e) {
+        std::ostringstream s;
+        s << e;
+        return s.str();
+    }
+}
+
+
+#endif
