@@ -4,6 +4,7 @@
 #include <ctime>
 #include <string>
 #include <sstream>
+#include <fstream>
 
 namespace Helper{
     template <class T>
@@ -29,14 +30,14 @@ namespace Helper{
         int D, M, m, y, H, S;
         std::string GetDateString() const {
             return std::string(D < 10 ? "0" : " ") + Tostring(D)+
-                   std::string(m < 10 ? ".0" : ".") + Tostring(m) + "." + 
-                   Tostring(y);
+                std::string(m < 10 ? ".0" : ".") + Tostring(m) + "." + 
+                Tostring(y);
         }
 
         std::string GetTime(const std::string &sep = ":") const {
             return std::string(H < 10 ? "0" : "") + Tostring(H) + sep + 
-                   std::string(M < 10 ? "0" : "") + Tostring(M) + sep +
-                   std::string(S < 10 ? sep : "") + Tostring(S);
+                std::string(M < 10 ? "0" : "") + Tostring(M) + sep +
+                std::string(S < 10 ? sep : "") + Tostring(S);
         }
         std::string GetDateTimeString(const std::string &sep = ":") const {
             return GetDateString() + " " + GetDateTimeString();
